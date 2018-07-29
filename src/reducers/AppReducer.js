@@ -56,7 +56,8 @@ export default(state = initialState, payload) => {
       return {
         ...state,
         buyingInProgress: false,
-        sharesTotal: payload.data
+        gettingShares: false,
+        error: payload.data
       }
 
     case 'BUY_SHARES_DEMO_COMPLETE':

@@ -67,15 +67,17 @@ class SignTransaction extends Component {
     SharesContract.updateShares(sharesNumber, (error, txHash) => {
       console.log('updateShares')
       if (error) { this.props.actions.buySharesERROR(error) }
-      waitForMined(addr, txHash, { blockNumber: null }, actions,
-        () => {
-          this.props.actions.buySharesPENDING()
-        },
-        (total) => {
-          console.log('waitForMined complete')
-          this.props.actions.buySharesSUCCESS(txHash, total)
-        }
-      )
+      else {
+        waitForMined(addr, txHash, { blockNumber: null }, actions,
+          () => {
+            this.props.actions.buySharesPENDING()
+          },
+          (total) => {
+            console.log('waitForMined complete')
+            this.props.actions.buySharesSUCCESS(txHash, total)
+          }
+        )
+      }
     })
   }
 
@@ -121,7 +123,7 @@ class SignTransaction extends Component {
                     <input
                       id='sharesInput'
                       type='number'
-                      style={{"paddingLeft":".5em", "font-size":"16px"}}
+                      style={{"paddingLeft":".5em", "fontSize":"16px"}}
                       onChange={this.handleInputChange}
                       value={this.props.sharesInput} />
                   </FormRow>
